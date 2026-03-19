@@ -1,0 +1,228 @@
+==============================================================================
+                 APPENDIX B — DISTANT READING ANALYSIS REPORT                 
+   AI with Responsibility: A Practical Guide for Content Creators in Brazil   
+               Generated: 2026-03-19 19:33  |  Mode: PRODUCTION               
+==============================================================================
+This report presents the findings of a systematic keyword frequency analysis
+applied to the Terms of Service (ToS) of ten digital platforms and AI tools.
+The analysis operationalizes four analytical dimensions defined in Appendix A:
+(1) Ownership & Licensing, (2) AI Training Provisions, (3) Data Governance,
+and (4) Power Asymmetry Indicators. Results are intended to support the
+qualitative arguments developed in the capstone's main text regarding the
+structural conditions governing Brazilian content creators.
+
+==============================================================================
+             SECTION 1: KEYWORD FREQUENCY BY ANALYTICAL DIMENSION             
+==============================================================================
+
+Platform          Ownership & LiceAI Training Prov Data Governance Power Asymmetry
+------------------------------------------------------------------------------
+Instagram                       25               7              35              26
+YouTube                         37               0              26              14
+TikTok                          45               4              31              42
+Kwai                            32               4              28              44
+WhatsApp                        35               6              37              61
+ChatGPT                         17               1              18               5
+Gemini                           7               6               9               3
+MS Copilot                       5               3              23               7
+CapCut                          96               4              76              58
+Meta AI                          6               0              30               9
+------------------------------------------------------------------------------
+TOTAL                          305              35             313             269
+
+==============================================================================
+        SECTION 2: TOP KEYWORDS PER DIMENSION (ALL PLATFORMS COMBINED)        
+==============================================================================
+
+
+------------------------------------------------------------------------------
+Ownership & Licensing
+------------------------------------------------------------------------------
+
+  intellectual property       76  ████████████████████████████████████████
+  copyright                   66  ████████████████████████████████████████
+  license                     62  ████████████████████████████████████████
+  modify                      40  ████████████████████████████████████████
+  distribute                  26  ██████████████████████████
+  reproduce                   16  ████████████████
+  retain                      14  ██████████████
+  worldwide                   12  ████████████
+
+------------------------------------------------------------------------------
+AI Training Provisions
+------------------------------------------------------------------------------
+
+  consent                     18  ██████████████████
+  opt-in                       6  ██████
+  generative                   4  ████
+  machine learning             2  ██
+  automated                    2  ██
+  train                        1  █
+  artificial intelligence      1  █
+  opt-out                      1  █
+
+------------------------------------------------------------------------------
+Data Governance
+------------------------------------------------------------------------------
+
+  third party                147  ████████████████████████████████████████
+  privacy                     85  ████████████████████████████████████████
+  share                       19  ███████████████████
+  delete                      19  ███████████████████
+  collect                     13  █████████████
+  personal data               10  ██████████
+  dados pessoais              10  ██████████
+  location                     6  ██████
+
+------------------------------------------------------------------------------
+Power Asymmetry
+------------------------------------------------------------------------------
+
+  arbitration                 75  ████████████████████████████████████████
+  liability                   68  ████████████████████████████████████████
+  modify                      40  ████████████████████████████████████████
+  discretion                  24  ████████████████████████
+  suspend                     22  ██████████████████████
+  terminate                   19  ███████████████████
+  sole discretion             12  ████████████
+  without notice              12  ████████████
+
+==============================================================================
+                    SECTION 3: PLATFORM-LEVEL OBSERVATIONS                    
+==============================================================================
+
+
+------------------------------------------------------------------------------
+Instagram  (Content Platform)  |  Operator: Meta Platforms, Inc.
+------------------------------------------------------------------------------
+
+  Dimension Scores: Ownership & : 25 | AI Training : 7 | Data Governa: 35 | Power Asymme: 26
+  Critical terms PRESENT: license, consent, personal data, third party, terminate, arbitration
+  Critical terms ABSENT : perpetual, irrevocable, royalty-free, train, opt-out, generative, biometric, LGPD, sole discretion, without notice
+  Dominant dimension    : Data Governance
+
+------------------------------------------------------------------------------
+YouTube  (Content Platform)  |  Operator: Google LLC
+------------------------------------------------------------------------------
+
+  Dimension Scores: Ownership & : 37 | AI Training : 0 | Data Governa: 26 | Power Asymme: 14
+  Critical terms PRESENT: license, personal data, third party, terminate
+  Critical terms ABSENT : perpetual, irrevocable, royalty-free, train, opt-out, consent, generative, biometric, LGPD, sole discretion, arbitration, without notice
+  Dominant dimension    : Ownership & Licensing
+
+------------------------------------------------------------------------------
+TikTok  (Content Platform)  |  Operator: TikTok Ltd. / ByteDance
+------------------------------------------------------------------------------
+
+  Dimension Scores: Ownership & : 45 | AI Training : 4 | Data Governa: 31 | Power Asymme: 42
+  Critical terms PRESENT: license, perpetual, irrevocable, consent, personal data, third party, terminate, arbitration
+  Critical terms ABSENT : royalty-free, train, opt-out, generative, biometric, LGPD, sole discretion, without notice
+  Dominant dimension    : Ownership & Licensing
+
+------------------------------------------------------------------------------
+Kwai  (Content Platform)  |  Operator: Kwai Inc. / Zhuhai Kuaishou
+------------------------------------------------------------------------------
+
+  Dimension Scores: Ownership & : 32 | AI Training : 4 | Data Governa: 28 | Power Asymme: 44
+  Critical terms PRESENT: perpetual, consent, personal data, third party, sole discretion, terminate, arbitration, without notice
+  Critical terms ABSENT : license, irrevocable, royalty-free, train, opt-out, generative, biometric, LGPD
+  Dominant dimension    : Power Asymmetry
+
+------------------------------------------------------------------------------
+WhatsApp  (Content Platform)  |  Operator: Meta Platforms, Inc.
+------------------------------------------------------------------------------
+
+  Dimension Scores: Ownership & : 35 | AI Training : 6 | Data Governa: 37 | Power Asymme: 61
+  Critical terms PRESENT: license, opt-out, consent, third party, sole discretion, terminate, arbitration
+  Critical terms ABSENT : perpetual, irrevocable, royalty-free, train, generative, personal data, biometric, LGPD, without notice
+  Dominant dimension    : Power Asymmetry
+
+------------------------------------------------------------------------------
+ChatGPT  (AI Tool)  |  Operator: OpenAI, LLC
+------------------------------------------------------------------------------
+
+  Dimension Scores: Ownership & : 17 | AI Training : 1 | Data Governa: 18 | Power Asymme: 5
+  Critical terms PRESENT: license, irrevocable, consent, third party, without notice
+  Critical terms ABSENT : perpetual, royalty-free, train, opt-out, generative, personal data, biometric, LGPD, sole discretion, terminate, arbitration
+  Dominant dimension    : Data Governance
+
+------------------------------------------------------------------------------
+Gemini  (AI Tool)  |  Operator: Google LLC
+------------------------------------------------------------------------------
+
+  Dimension Scores: Ownership & : 7 | AI Training : 6 | Data Governa: 9 | Power Asymme: 3
+  Critical terms PRESENT: license, train, generative
+  Critical terms ABSENT : perpetual, irrevocable, royalty-free, opt-out, consent, personal data, biometric, LGPD, third party, sole discretion, terminate, arbitration, without notice
+  Dominant dimension    : Data Governance
+
+------------------------------------------------------------------------------
+MS Copilot  (AI Tool)  |  Operator: Microsoft Corporation
+------------------------------------------------------------------------------
+
+  Dimension Scores: Ownership & : 5 | AI Training : 3 | Data Governa: 23 | Power Asymme: 7
+  Critical terms PRESENT: consent, personal data, third party, sole discretion, arbitration, without notice
+  Critical terms ABSENT : license, perpetual, irrevocable, royalty-free, train, opt-out, generative, biometric, LGPD, terminate
+  Dominant dimension    : Data Governance
+
+------------------------------------------------------------------------------
+CapCut  (AI Tool)  |  Operator: ByteDance Ltd.
+------------------------------------------------------------------------------
+
+  Dimension Scores: Ownership & : 96 | AI Training : 4 | Data Governa: 76 | Power Asymme: 58
+  Critical terms PRESENT: license, perpetual, irrevocable, consent, third party, sole discretion, terminate, without notice
+  Critical terms ABSENT : royalty-free, train, opt-out, generative, personal data, biometric, LGPD, arbitration
+  Dominant dimension    : Ownership & Licensing
+
+------------------------------------------------------------------------------
+Meta AI  (AI Tool)  |  Operator: Meta Platforms, Inc.
+------------------------------------------------------------------------------
+
+  Dimension Scores: Ownership & : 6 | AI Training : 0 | Data Governa: 30 | Power Asymme: 9
+  Critical terms PRESENT: third party, sole discretion
+  Critical terms ABSENT : license, perpetual, irrevocable, royalty-free, train, opt-out, consent, generative, personal data, biometric, LGPD, terminate, arbitration, without notice
+  Dominant dimension    : Data Governance
+
+==============================================================================
+                      SECTION 4: CROSS-PLATFORM PATTERNS                      
+==============================================================================
+
+  Highest keyword density per dimension:
+    Ownership & Licensing          → CapCut (96)
+    AI Training Provisions         → Instagram (7)
+    Data Governance                → CapCut (76)
+    Power Asymmetry                → WhatsApp (61)
+  Ownership & Licensing         : avg AI=26.2, avg Content=34.8 → Content Platforms score higher
+  AI Training Provisions        : avg AI=2.8, avg Content=4.2 → Content Platforms score higher
+  Data Governance               : avg AI=31.2, avg Content=31.4 → Content Platforms score higher
+  Power Asymmetry               : avg AI=16.4, avg Content=37.4 → Content Platforms score higher
+
+  LGPD references per platform:
+    Instagram         : 0
+    YouTube           : 0
+    TikTok            : 0
+    Kwai              : 0
+    WhatsApp          : 0
+    ChatGPT           : 0
+    Gemini            : 0
+    MS Copilot        : 0
+    CapCut            : 0
+    Meta AI           : 0
+
+==============================================================================
+                             METHODOLOGICAL NOTE                              
+==============================================================================
+
+This analysis employs distant reading methodology (Moretti, 2000) to identify
+structural patterns across a corpus of ten legal documents. Keyword frequency
+serves as a proxy for the relative emphasis each platform places on a given
+dimension of governance. The method is not a substitute for close reading of
+specific clauses and should be interpreted in conjunction with the qualitative
+analysis in the capstone's main text. Bilingual keyword matching (English and
+Portuguese) is used in production mode to handle documents in both languages.
+Demo mode uses English translations of representative clauses.
+
+  Reference: Moretti, F. (2000). Conjectures on World Literature. New Left Review, 1, 54–68.
+
+==============================================================================
+                                END OF REPORT                                 
+==============================================================================
