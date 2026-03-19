@@ -499,6 +499,139 @@
       margin-top: 0.5rem;
     }
 
+    /* ── COMPARATOR ─────────────────────────────────────────── */
+    #comparator {
+      background: var(--navy);
+    }
+
+    .comparator-group-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .comparator-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--navy-mid);
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+    }
+
+    .chip:hover {
+      border-color: var(--accent);
+      color: var(--off-white);
+    }
+
+    .chip.selected {
+      border-color: var(--accent);
+      background: rgba(74,158,202,0.15);
+      color: var(--white);
+    }
+
+    .chip input[type="checkbox"] { display: none; }
+
+    .comparator-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .comparator-placeholder {
+      margin-top: 2rem;
+      padding: 2rem;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .comparator-table-wrap {
+      margin-top: 2rem;
+      overflow-x: auto;
+    }
+
+    .comparator-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.87rem;
+    }
+
+    .comparator-table th {
+      background: var(--navy-mid);
+      color: var(--off-white);
+      font-weight: 700;
+      text-align: center;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .comparator-table th.row-header {
+      text-align: left;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .comparator-table td {
+      text-align: center;
+      padding: 0.65rem 1rem;
+      border: 1px solid var(--border);
+      background: var(--navy-mid);
+      color: var(--off-white);
+    }
+
+    .comparator-table td.row-label {
+      text-align: left;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--navy);
+      white-space: nowrap;
+    }
+
+    .comparator-table tr.total-row td {
+      font-weight: 700;
+      background: var(--navy);
+    }
+
+    .cell-winner {
+      font-weight: 700;
+    }
+
+    .crown {
+      font-size: 0.85rem;
+      margin-left: 0.25rem;
+    }
+
     /* ── HAMBURGER BUTTON ───────────────────────────────────── */
     .nav-toggle {
       display: none;
@@ -628,6 +761,7 @@
         <li><a href="#findings">Findings</a></li>
         <li><a href="#dashboard">Dashboard</a></li>
         <li><a href="#platforms">Platforms</a></li>
+        <li><a href="#comparator">Compare</a></li>
       </ul>
     </div>
   </nav>
@@ -1142,6 +1276,47 @@
     </div>
   </section>
 
+  <!-- ── PLATFORM COMPARATOR ── -->
+  <section id="comparator">
+    <div class="section-inner">
+      <p class="section-eyebrow">Platform Comparator</p>
+      <h2 class="section-title">Compare Platforms</h2>
+      <p class="section-subtitle">
+        Select two or more platforms to compare their policy scores side by side.
+      </p>
+
+      <!-- Chip selectors -->
+      <div class="comparator-group">
+        <div class="comparator-group-label">Content Platforms</div>
+        <div class="chip-row" id="chips-content">
+          <label class="chip" data-key="Instagram"><input type="checkbox" value="Instagram"> 📷 Instagram</label>
+          <label class="chip" data-key="YouTube"><input type="checkbox" value="YouTube"> ▶ YouTube</label>
+          <label class="chip" data-key="TikTok"><input type="checkbox" value="TikTok"> ♩ TikTok</label>
+          <label class="chip" data-key="Kwai"><input type="checkbox" value="Kwai"> 🎬 Kwai</label>
+          <label class="chip" data-key="WhatsApp"><input type="checkbox" value="WhatsApp"> 💬 WhatsApp</label>
+        </div>
+      </div>
+      <div class="comparator-group">
+        <div class="comparator-group-label">AI Tools</div>
+        <div class="chip-row" id="chips-ai">
+          <label class="chip" data-key="ChatGPT"><input type="checkbox" value="ChatGPT"> ✧ ChatGPT</label>
+          <label class="chip" data-key="Gemini"><input type="checkbox" value="Gemini"> ✦ Gemini</label>
+          <label class="chip" data-key="MS Copilot"><input type="checkbox" value="MS Copilot"> ⬡ MS Copilot</label>
+          <label class="chip" data-key="CapCut"><input type="checkbox" value="CapCut"> ✂ CapCut</label>
+          <label class="chip" data-key="Meta AI"><input type="checkbox" value="Meta AI"> ◈ Meta AI</label>
+        </div>
+      </div>
+
+      <div class="comparator-actions">
+        <button id="clear-compare" class="btn btn-secondary" style="padding:0.45rem 1.1rem;font-size:0.82rem;">Clear selection</button>
+      </div>
+
+      <div id="comparator-output">
+        <div class="comparator-placeholder">Select at least 2 platforms to start comparing.</div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── BACK TO TOP ── -->
   <button id="back-to-top" aria-label="Back to top">↑</button>
 
@@ -1209,6 +1384,89 @@
     );
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ── Platform Comparator ──────────────────────────────────
+    const PLATFORM_DATA = {
+      'Instagram':  { scores: [25, 7, 35, 26],  total: 93  },
+      'YouTube':    { scores: [37, 0, 26, 14],  total: 77  },
+      'TikTok':     { scores: [45, 4, 31, 42],  total: 122 },
+      'Kwai':       { scores: [32, 4, 28, 44],  total: 108 },
+      'WhatsApp':   { scores: [35, 6, 37, 61],  total: 139 },
+      'ChatGPT':    { scores: [17, 1, 18, 5],   total: 41  },
+      'Gemini':     { scores: [7,  6, 9,  3],   total: 25  },
+      'MS Copilot': { scores: [5,  3, 23, 7],   total: 38  },
+      'CapCut':     { scores: [96, 4, 76, 58],  total: 234 },
+      'Meta AI':    { scores: [6,  0, 30, 9],   total: 45  },
+    };
+
+    const ROW_LABELS = [
+      'Ownership & Licensing',
+      'AI Training',
+      'Data Governance',
+      'Power Asymmetry',
+      'Total Score',
+    ];
+
+    // Badge thresholds mirror the dashboard table (lower = more concerning for creators)
+    function badgeClass(val, isTotal) {
+      if (isTotal) return val >= 100 ? 'badge-low' : val >= 50 ? 'badge-medium' : 'badge-high';
+      return val >= 30 ? 'badge-low' : val >= 10 ? 'badge-medium' : 'badge-high';
+    }
+
+    function renderComparator() {
+      const selected = Array.from(document.querySelectorAll('.chip.selected'))
+        .map(c => c.dataset.key);
+      const out = document.getElementById('comparator-output');
+
+      if (selected.length < 2) {
+        out.innerHTML = '<div class="comparator-placeholder">Select at least 2 platforms to start comparing.</div>';
+        return;
+      }
+
+      // Build row data: 4 score rows + total row
+      const rows = ROW_LABELS.map((label, i) => {
+        const isTotal = i === 4;
+        const vals = selected.map(p => isTotal ? PLATFORM_DATA[p].total : PLATFORM_DATA[p].scores[i]);
+        const max = Math.max(...vals);
+        return { label, isTotal, vals, max };
+      });
+
+      let html = '<div class="comparator-table-wrap"><table class="comparator-table"><thead><tr>';
+      html += '<th class="row-header">Dimension</th>';
+      selected.forEach(p => { html += `<th>${p}</th>`; });
+      html += '</tr></thead><tbody>';
+
+      rows.forEach(row => {
+        html += row.isTotal ? '<tr class="total-row">' : '<tr>';
+        html += `<td class="row-label">${row.label}</td>`;
+        row.vals.forEach(v => {
+          const bc = badgeClass(v, row.isTotal);
+          const crown = v === row.max ? '<span class="crown">👑</span>' : '';
+          const winClass = v === row.max ? ' cell-winner' : '';
+          html += `<td class="${winClass}"><span class="badge ${bc}">${v}</span>${crown}</td>`;
+        });
+        html += '</tr>';
+      });
+
+      html += '</tbody></table></div>';
+      out.innerHTML = html;
+    }
+
+    document.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        chip.classList.toggle('selected');
+        chip.querySelector('input').checked = chip.classList.contains('selected');
+        renderComparator();
+      });
+    });
+
+    document.getElementById('clear-compare').addEventListener('click', () => {
+      document.querySelectorAll('.chip.selected').forEach(c => {
+        c.classList.remove('selected');
+        c.querySelector('input').checked = false;
+      });
+      renderComparator();
+    });
   </script>
 </body>
 </html>
