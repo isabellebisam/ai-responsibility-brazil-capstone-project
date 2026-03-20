@@ -1445,7 +1445,8 @@
     }
 
     document.querySelectorAll('#comparator .chip').forEach(chip => {
-      chip.addEventListener('click', () => {
+      chip.addEventListener('click', (e) => {
+        e.preventDefault();
         chip.classList.toggle('selected');
         chip.querySelector('input').checked = chip.classList.contains('selected');
         renderComparator();
