@@ -628,6 +628,70 @@
       margin-left: 0.25rem;
     }
 
+    .comparator-context-note {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      margin-top: 1.75rem;
+      padding: 0.9rem 1.1rem;
+      border-radius: 10px;
+      border: 1px solid rgba(234,179,8,0.3);
+      background: rgba(234,179,8,0.07);
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .comparator-context-note strong {
+      color: #facc15;
+    }
+
+    .comparator-summary {
+      margin-top: 1.25rem;
+      padding: 0.9rem 1.1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--navy-mid);
+      font-size: 0.85rem;
+      color: var(--off-white);
+      line-height: 1.7;
+    }
+
+    /* Tooltip on row labels */
+    .has-tip {
+      position: relative;
+      cursor: help;
+      border-bottom: 1px dashed var(--muted);
+    }
+
+    .has-tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: 0;
+      top: calc(100% + 6px);
+      z-index: 300;
+      width: 220px;
+      padding: 0.55rem 0.75rem;
+      background: var(--navy-light);
+      color: var(--off-white);
+      font-size: 0.75rem;
+      font-weight: 400;
+      line-height: 1.5;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+      white-space: normal;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .has-tip:hover::after {
+      opacity: 1;
+    }
+
     /* ── HAMBURGER BUTTON ───────────────────────────────────── */
     .nav-toggle {
       display: none;
@@ -1402,9 +1466,52 @@
       'Total Score',
     ];
 
+    const ROW_TIPS = [
+      'Higher = platform claims broader rights over your content',
+      'Higher = more explicit AI training language. Lower may mean the topic is avoided entirely — not that you\'re protected.',
+      'Higher = more data collection and sharing language',
+      'Higher = more unilateral control by the platform (termination, arbitration, no-notice changes)',
+      'Combined keyword frequency across all 4 dimensions',
+    ];
+
+    const DIM_NAMES_SHORT = ['Ownership & Licensing', 'AI Training', 'Data Governance', 'Power Asymmetry'];
+
     function badgeClass(val, isTotal) {
       if (isTotal) return val >= 100 ? 'badge-low' : val >= 50 ? 'badge-medium' : 'badge-high';
       return val >= 30 ? 'badge-low' : val >= 10 ? 'badge-medium' : 'badge-high';
+    }
+
+    function buildSummary(selected) {
+      if (selected.length === 2) {
+        const [a, b] = selected;
+        const da = PLATFORM_DATA[a], db = PLATFORM_DATA[b];
+        const higher = da.total >= db.total ? a : b;
+        const lower  = higher === a ? b : a;
+        const standout = DIM_NAMES_SHORT.filter((_, i) => {
+          const hScore = PLATFORM_DATA[higher].scores[i];
+          const lScore = PLATFORM_DATA[lower].scores[i];
+          return hScore > lScore && (hScore - lScore) >= 5;
+        });
+        if (standout.length === 0) {
+          return `${a} and ${b} have similar keyword frequency profiles across all dimensions.`;
+        }
+        const dims = standout.length === 1
+          ? standout[0]
+          : standout.slice(0, -1).join(', ') + ' and ' + standout.at(-1);
+        return `${higher} shows higher rights acquisition language than ${lower}, particularly in ${dims}.`;
+      }
+
+      // 3+ platforms: find overall highest and lowest total
+      const totals = selected.map(p => ({ p, t: PLATFORM_DATA[p].total }));
+      totals.sort((a, b) => b.t - a.t);
+      const top = totals[0].p, bot = totals[totals.length - 1].p;
+      const standout = DIM_NAMES_SHORT.filter((_, i) =>
+        PLATFORM_DATA[top].scores[i] === Math.max(...selected.map(p => PLATFORM_DATA[p].scores[i]))
+      );
+      const dims = standout.length
+        ? ' — especially in ' + (standout.length === 1 ? standout[0] : standout.slice(0,-1).join(', ') + ' and ' + standout.at(-1))
+        : '';
+      return `Among the selected platforms, ${top} has the most extensive legal language${dims}. ${bot} has the lowest overall keyword frequency.`;
     }
 
     function renderComparator() {
@@ -1421,17 +1528,24 @@
         const isTotal = i === 4;
         const vals = selected.map(p => isTotal ? PLATFORM_DATA[p].total : PLATFORM_DATA[p].scores[i]);
         const max = Math.max(...vals);
-        return { label, isTotal, vals, max };
+        return { label, tip: ROW_TIPS[i], isTotal, vals, max };
       });
 
-      let html = '<div class="comparator-table-wrap"><table class="comparator-table"><thead><tr>';
+      // Context note
+      let html = `<div class="comparator-context-note">
+        <span>⚠️</span>
+        <span><strong>Important:</strong> higher scores do not mean better or safer platforms. Scores reflect how frequently key legal terms appear in each Terms of Service. A high score may indicate more aggressive rights acquisition or less transparency — not more protection.</span>
+      </div>`;
+
+      // Table
+      html += '<div class="comparator-table-wrap"><table class="comparator-table"><thead><tr>';
       html += '<th class="row-header">Dimension</th>';
       selected.forEach(p => { html += `<th>${p}</th>`; });
       html += '</tr></thead><tbody>';
 
       rows.forEach(row => {
         html += row.isTotal ? '<tr class="total-row">' : '<tr>';
-        html += `<td class="row-label">${row.label}</td>`;
+        html += `<td class="row-label"><span class="has-tip" data-tip="${row.tip}">${row.label}</span></td>`;
         row.vals.forEach(v => {
           const bc = badgeClass(v, row.isTotal);
           const crown = v === row.max ? '<span class="crown">👑</span>' : '';
@@ -1441,6 +1555,10 @@
       });
 
       html += '</tbody></table></div>';
+
+      // Auto-generated summary
+      html += `<div class="comparator-summary">📝 ${buildSummary(selected)}</div>`;
+
       out.innerHTML = html;
     }
 
