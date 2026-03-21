@@ -1,0 +1,245 @@
+==============================================================================
+                 APPENDIX C — PRIVACY POLICY ANALYSIS REPORT                  
+   AI with Responsibility: A Practical Guide for Content Creators in Brazil   
+               Generated: 2026-03-21 23:21  |  Mode: PRODUCTION               
+==============================================================================
+This report presents findings from a keyword frequency analysis of the Privacy
+Policies of ten digital platforms and AI tools. It is the companion analysis
+to Appendix B (Terms of Service analysis). The four dimensions examined are:
+(1) Data Collection, (2) Data Use & AI, (3) Data Sharing, and (4) User Rights
+& LGPD. Results are intended to complement the qualitative analysis in Module
+III of the capstone regarding data governance and Brazilian creator rights
+under the LGPD.
+
+==============================================================================
+                  SECTION 1: KEYWORD FREQUENCY BY DIMENSION                   
+==============================================================================
+
+Platform           Data Collection   Data Use & AI    Data SharingUser Rights & LG
+------------------------------------------------------------------------------
+Instagram                      233              41             115             268
+YouTube                        113              28              34             156
+TikTok                          60              19              26              80
+Kwai                            47              11              45              49
+WhatsApp                        29               8              34              70
+ChatGPT                         91               7              14             137
+Gemini                         163              42              44             204
+MS Copilot                       2               6               5              76
+CapCut                          31              10              28              49
+Meta AI                        233              41             115             268
+------------------------------------------------------------------------------
+TOTAL                         1002             213             460            1357
+
+==============================================================================
+                    SECTION 2: TOP KEYWORDS PER DIMENSION                     
+==============================================================================
+
+
+------------------------------------------------------------------------------
+Data Collection
+------------------------------------------------------------------------------
+
+  device                     434  ████████████████████████████████████████
+  location                   170  ████████████████████████████████████████
+  cookies                    159  ████████████████████████████████████████
+  personal data              111  ████████████████████████████████████████
+  metadata                    68  ████████████████████████████████████████
+  collect                     49  ████████████████████████████████████████
+  infer                        3  ███
+  tracking                     3  ███
+
+------------------------------------------------------------------------------
+Data Use & AI
+------------------------------------------------------------------------------
+
+  advertising                 90  ████████████████████████████████████████
+  personalize                 73  ████████████████████████████████████████
+  train                       22  ██████████████████████
+  machine learning            14  ██████████████
+  automated                    6  ██████
+  content moderation           6  ██████
+  opt-out                      2  ██
+  AI model                     0  
+
+------------------------------------------------------------------------------
+Data Sharing
+------------------------------------------------------------------------------
+
+  third party                225  ████████████████████████████████████████
+  share                      110  ████████████████████████████████████████
+  partner                     38  ██████████████████████████████████████
+  advertiser                  32  ████████████████████████████████
+  transfer                    21  █████████████████████
+  disclose                    16  ████████████████
+  government                   8  ████████
+  sell                         8  ████████
+
+------------------------------------------------------------------------------
+User Rights & LGPD
+------------------------------------------------------------------------------
+
+  privacy                    991  ████████████████████████████████████████
+  delete                     146  ████████████████████████████████████████
+  dados pessoais             109  ████████████████████████████████████████
+  consent                     41  ████████████████████████████████████████
+  retention                   23  ███████████████████████
+  transparency                23  ███████████████████████
+  correct                     18  ██████████████████
+  portability                  2  ██
+
+==============================================================================
+                    SECTION 3: PLATFORM-LEVEL OBSERVATIONS                    
+==============================================================================
+
+
+------------------------------------------------------------------------------
+Instagram  (Content Platform)  |  Operator: Meta Platforms, Inc.
+------------------------------------------------------------------------------
+
+  Dimension Scores: Data Colle: 233 | Data Use &: 41 | Data Shari: 115 | User Right: 268
+  Critical terms PRESENT: collect, train, automated, third party, sell, government, consent, delete
+  Critical terms ABSENT : personal data, biometric, sensitive data, opt-out, profiling, cross-border, LGPD, retention
+  Dominant dimension    : User Rights & LGPD
+
+------------------------------------------------------------------------------
+YouTube  (Content Platform)  |  Operator: Google LLC
+------------------------------------------------------------------------------
+
+  Dimension Scores: Data Colle: 113 | Data Use &: 28 | Data Shari: 34 | User Right: 156
+  Critical terms PRESENT: personal data, biometric, collect, train, automated, third party, consent, delete, retention
+  Critical terms ABSENT : sensitive data, opt-out, profiling, sell, cross-border, government, LGPD
+  Dominant dimension    : User Rights & LGPD
+
+------------------------------------------------------------------------------
+TikTok  (Content Platform)  |  Operator: ByteDance Ltd.
+------------------------------------------------------------------------------
+
+  Dimension Scores: Data Colle: 60 | Data Use &: 19 | Data Shari: 26 | User Right: 80
+  Critical terms PRESENT: personal data, collect, opt-out, third party, LGPD, consent, delete
+  Critical terms ABSENT : biometric, sensitive data, train, automated, profiling, sell, cross-border, government, retention
+  Dominant dimension    : User Rights & LGPD
+
+------------------------------------------------------------------------------
+Kwai  (Content Platform)  |  Operator: Kwai Inc. / Zhuhai Kuaishou
+------------------------------------------------------------------------------
+
+  Dimension Scores: Data Colle: 47 | Data Use &: 11 | Data Shari: 45 | User Right: 49
+  Critical terms PRESENT: personal data, collect, third party, consent, delete
+  Critical terms ABSENT : biometric, sensitive data, train, opt-out, automated, profiling, sell, cross-border, government, LGPD, retention
+  Dominant dimension    : User Rights & LGPD
+
+------------------------------------------------------------------------------
+WhatsApp  (Content Platform)  |  Operator: Meta Platforms, Inc.
+------------------------------------------------------------------------------
+
+  Dimension Scores: Data Colle: 29 | Data Use &: 8 | Data Shari: 34 | User Right: 70
+  Critical terms PRESENT: collect, third party, consent, delete, retention
+  Critical terms ABSENT : personal data, biometric, sensitive data, train, opt-out, automated, profiling, sell, cross-border, government, LGPD
+  Dominant dimension    : User Rights & LGPD
+
+------------------------------------------------------------------------------
+ChatGPT  (AI Tool)  |  Operator: OpenAI, LLC
+------------------------------------------------------------------------------
+
+  Dimension Scores: Data Colle: 91 | Data Use &: 7 | Data Shari: 14 | User Right: 137
+  Critical terms PRESENT: personal data, collect, train, third party, consent, delete, retention
+  Critical terms ABSENT : biometric, sensitive data, opt-out, automated, profiling, sell, cross-border, government, LGPD
+  Dominant dimension    : User Rights & LGPD
+
+------------------------------------------------------------------------------
+Gemini  (AI Tool)  |  Operator: Google LLC
+------------------------------------------------------------------------------
+
+  Dimension Scores: Data Colle: 163 | Data Use &: 42 | Data Shari: 44 | User Right: 204
+  Critical terms PRESENT: personal data, biometric, collect, train, automated, third party, government, consent, delete, retention
+  Critical terms ABSENT : sensitive data, opt-out, profiling, sell, cross-border, LGPD
+  Dominant dimension    : User Rights & LGPD
+
+------------------------------------------------------------------------------
+MS Copilot  (AI Tool)  |  Operator: Microsoft Corporation
+------------------------------------------------------------------------------
+
+  Dimension Scores: Data Colle: 2 | Data Use &: 6 | Data Shari: 5 | User Right: 76
+  Critical terms PRESENT: train, third party, government, delete, retention
+  Critical terms ABSENT : personal data, biometric, collect, sensitive data, opt-out, automated, profiling, sell, cross-border, LGPD, consent
+  Dominant dimension    : User Rights & LGPD
+
+------------------------------------------------------------------------------
+CapCut  (AI Tool)  |  Operator: ByteDance Ltd.
+------------------------------------------------------------------------------
+
+  NOTE: Document auto-translated from English to Portuguese via Google Translate prior to analysis.
+  Dimension Scores: Data Colle: 31 | Data Use &: 10 | Data Shari: 28 | User Right: 49
+  Critical terms PRESENT: personal data, collect, train, third party, consent, delete, retention
+  Critical terms ABSENT : biometric, sensitive data, opt-out, automated, profiling, sell, cross-border, government, LGPD
+  Dominant dimension    : User Rights & LGPD
+
+------------------------------------------------------------------------------
+Meta AI  (AI Tool)  |  Operator: Meta Platforms, Inc.
+------------------------------------------------------------------------------
+
+  Dimension Scores: Data Colle: 233 | Data Use &: 41 | Data Shari: 115 | User Right: 268
+  Critical terms PRESENT: collect, train, automated, third party, sell, government, consent, delete
+  Critical terms ABSENT : personal data, biometric, sensitive data, opt-out, profiling, cross-border, LGPD, retention
+  Dominant dimension    : User Rights & LGPD
+
+==============================================================================
+                      SECTION 4: CROSS-PLATFORM PATTERNS                      
+==============================================================================
+
+  Highest keyword density per dimension:
+    Data Collection                → Instagram (233)
+    Data Use & AI                  → Gemini (42)
+    Data Sharing                   → Instagram (115)
+    User Rights & LGPD             → Instagram (268)
+
+  AI Tools vs Content Platforms average scores:
+  Data Collection               : avg AI=104.0, avg Content=96.4 → AI Tools score higher
+  Data Use & AI                 : avg AI=21.2, avg Content=21.4 → Content Platforms score higher
+  Data Sharing                  : avg AI=41.2, avg Content=50.8 → Content Platforms score higher
+  User Rights & LGPD            : avg AI=146.8, avg Content=124.6 → AI Tools score higher
+
+  LGPD references per platform:
+    Instagram         : 0
+    YouTube           : 0
+    TikTok            : 1
+    Kwai              : 0
+    WhatsApp          : 0
+    ChatGPT           : 0
+    Gemini            : 0
+    MS Copilot        : 0
+    CapCut            : 0
+    Meta AI           : 0
+
+  Biometric data references per platform:
+    Instagram         : 0
+    YouTube           : 1
+    TikTok            : 0
+    Kwai              : 0
+    WhatsApp          : 0
+    ChatGPT           : 0
+    Gemini            : 1
+    MS Copilot        : 0
+    CapCut            : 0
+    Meta AI           : 0
+
+==============================================================================
+                             METHODOLOGICAL NOTE                              
+==============================================================================
+
+This analysis applies distant reading methodology to Privacy Policy documents.
+For platforms governed by multiple documents (Meta: Privacy Policy + Products;
+YouTube/Gemini: platform policy + Google Privacy), documents were concatenated
+into a single corpus per platform before analysis. This ensures the full scope
+of each platform's privacy framework is captured. CapCut's documents were
+auto-translated from English to Portuguese via Google Translate prior to
+analysis; findings should be interpreted with this limitation in mind.
+Bilingual keyword matching (English and Portuguese) is applied in production
+mode.
+
+  Companion script: capstone_tos_analysis.py (Appendix B)
+  Reference: Moretti, F. (2000). Conjectures on World Literature. New Left Review, 1, 54–68.
+
+==============================================================================
+                                END OF REPORT                                 
+==============================================================================
