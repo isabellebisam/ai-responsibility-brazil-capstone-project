@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Platform Comparator — AI with Responsibility</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy:       #0d1b2a;
+      --navy-mid:   #1b2d42;
+      --navy-light: #243b55;
+      --accent:     #4a9eca;
+      --accent-dim: #2e7aab;
+      --white:      #ffffff;
+      --off-white:  #e8edf2;
+      --muted:      #94a3b8;
+      --border:     rgba(74, 158, 202, 0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--navy);
+      color: var(--off-white);
+      line-height: 1.7;
+    }
+
+    /* ── NAVIGATION ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13, 27, 42, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-brand {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      text-transform: uppercase;
+      text-decoration: none;
+      max-width: 260px;
+      line-height: 1.3;
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem;
+      z-index: 101;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--off-white);
+      border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); background: var(--navy-light); }
+
+    .nav-links a.active {
+      color: var(--white);
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+    }
+
+    /* ── HERO ───────────────────────────────────────────────── */
+    #comparator-hero {
+      min-height: 46vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7rem 2rem 4rem;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(74,158,202,0.18) 0%, transparent 70%),
+        linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%);
+      text-align: center;
+    }
+
+    .hero-content { max-width: 820px; }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.18;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-intro {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ── SECTION LAYOUT ─────────────────────────────────────── */
+    section { padding: 5rem 2rem 6rem; }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── DATASET TOGGLE ─────────────────────────────────────── */
+    #comparator-app { background: var(--navy-mid); }
+
+    .dataset-toggle {
+      display: inline-flex;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .toggle-btn {
+      padding: 0.55rem 1.4rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .toggle-btn:first-child { border-right: 1px solid var(--border); }
+
+    .toggle-btn.active {
+      background: var(--accent);
+      color: var(--navy);
+    }
+
+    /* ── CHIP SELECTOR ──────────────────────────────────────── */
+    .comparator-group-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .comparator-group { margin-bottom: 1.25rem; }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--navy);
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+    }
+
+    .chip:hover { border-color: var(--accent); color: var(--off-white); }
+
+    .chip.selected {
+      border-color: var(--accent);
+      background: rgba(74,158,202,0.15);
+      color: var(--white);
+    }
+
+    .chip input[type="checkbox"] { display: none; }
+
+    .comparator-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+
+    .btn-primary   { background: var(--accent); color: var(--navy); }
+    .btn-secondary { background: transparent; color: var(--off-white); border: 1px solid var(--border); }
+
+    /* ── COMPARATOR OUTPUT ──────────────────────────────────── */
+    .comparator-placeholder {
+      margin-top: 2rem;
+      padding: 2rem;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .comparator-context-note {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      margin-top: 1.75rem;
+      padding: 0.9rem 1.1rem;
+      border-radius: 10px;
+      border: 1px solid rgba(234,179,8,0.3);
+      background: rgba(234,179,8,0.07);
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .comparator-context-note strong { color: #facc15; }
+
+    .comparator-table-wrap {
+      margin-top: 2rem;
+      overflow-x: auto;
+    }
+
+    .comparator-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.87rem;
+    }
+
+    .comparator-table th {
+      background: var(--navy-mid);
+      color: var(--off-white);
+      font-weight: 700;
+      text-align: center;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .comparator-table th.row-header {
+      text-align: left;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .comparator-table td {
+      text-align: center;
+      padding: 0.65rem 1rem;
+      border: 1px solid var(--border);
+      background: var(--navy-mid);
+      color: var(--off-white);
+    }
+
+    .comparator-table td.row-label {
+      text-align: left;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--navy);
+      white-space: nowrap;
+    }
+
+    .comparator-table tr.total-row td {
+      font-weight: 700;
+      background: var(--navy);
+    }
+
+    .crown { font-size: 0.85rem; margin-left: 0.25rem; }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-high   { background: rgba(34,197,94,0.15);  color: #4ade80; }
+    .badge-medium { background: rgba(234,179,8,0.15);  color: #facc15; }
+    .badge-low    { background: rgba(239,68,68,0.15);  color: #f87171; }
+
+    /* Dimension tooltips */
+    .has-tip {
+      position: relative;
+      cursor: help;
+      border-bottom: 1px dashed var(--muted);
+    }
+
+    .has-tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: 0;
+      top: calc(100% + 6px);
+      z-index: 300;
+      width: 220px;
+      padding: 0.55rem 0.75rem;
+      background: var(--navy-light);
+      color: var(--off-white);
+      font-size: 0.75rem;
+      font-weight: 400;
+      line-height: 1.5;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+      white-space: normal;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .has-tip:hover::after { opacity: 1; }
+
+    .comparator-summary {
+      margin-top: 1.25rem;
+      padding: 0.9rem 1.1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--navy-mid);
+      font-size: 0.85rem;
+      color: var(--off-white);
+      line-height: 1.7;
+    }
+
+    /* ── BACK TO TOP ─────────────────────────────────────────── */
+    #back-to-top {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      z-index: 200;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--navy);
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.2s;
+    }
+
+    #back-to-top.visible { opacity: 1; pointer-events: auto; }
+    #back-to-top:hover   { transform: translateY(-3px); }
+
+    /* ── FADE-IN ─────────────────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .footer-logo    { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; }
+    .footer-divider { width: 40px; height: 1px; background: var(--border); }
+    .footer-author  { color: var(--off-white); font-size: 0.9rem; }
+    .footer-program { color: var(--muted); font-size: 0.82rem; }
+    .footer-copy    { color: var(--muted); font-size: 0.78rem; margin-top: 0.5rem; }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-toggle { display: flex; }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        position: absolute;
+        top: 64px; left: 0; right: 0;
+        background: rgba(13, 27, 42, 0.97);
+        border-bottom: 1px solid var(--border);
+        padding: 0.75rem 1rem 1rem;
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links a    { padding: 0.65rem 1rem; font-size: 0.95rem; border-radius: 6px; }
+      .nav-brand      { font-size: 0.75rem; max-width: 200px; }
+
+      .dataset-toggle { width: 100%; }
+      .toggle-btn     { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">AI with Responsibility</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tos.html">Terms of Service</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="comparator.html" class="active">Comparator</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="comparator-hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Interactive Tool &nbsp;·&nbsp; Keyword Analysis</div>
+      <h1 class="hero-title">Platform Comparator</h1>
+      <p class="hero-intro">
+        Select two or more platforms to compare their scores side by side.
+        Toggle between Terms of Service and Privacy Policy analysis.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── COMPARATOR APP ── -->
+  <section id="comparator-app">
+    <div class="section-inner">
+
+      <!-- Dataset toggle -->
+      <div class="dataset-toggle" role="group" aria-label="Select dataset">
+        <button class="toggle-btn active" id="btn-tos">Terms of Service</button>
+        <button class="toggle-btn" id="btn-privacy">Privacy Policy</button>
+      </div>
+
+      <!-- Platform chips -->
+      <div class="comparator-group">
+        <div class="comparator-group-label">Content Platforms</div>
+        <div class="chip-row">
+          <label class="chip" data-key="Instagram"><input type="checkbox" value="Instagram"> 📷 Instagram</label>
+          <label class="chip" data-key="YouTube"><input type="checkbox" value="YouTube"> ▶ YouTube</label>
+          <label class="chip" data-key="TikTok"><input type="checkbox" value="TikTok"> ♩ TikTok</label>
+          <label class="chip" data-key="Kwai"><input type="checkbox" value="Kwai"> 🎬 Kwai</label>
+          <label class="chip" data-key="WhatsApp"><input type="checkbox" value="WhatsApp"> 💬 WhatsApp</label>
+        </div>
+      </div>
+      <div class="comparator-group">
+        <div class="comparator-group-label">AI Tools</div>
+        <div class="chip-row">
+          <label class="chip" data-key="ChatGPT"><input type="checkbox" value="ChatGPT"> ✧ ChatGPT</label>
+          <label class="chip" data-key="Gemini"><input type="checkbox" value="Gemini"> ✦ Gemini</label>
+          <label class="chip" data-key="MS Copilot"><input type="checkbox" value="MS Copilot"> ⬡ MS Copilot</label>
+          <label class="chip" data-key="CapCut"><input type="checkbox" value="CapCut"> ✂ CapCut</label>
+          <label class="chip" data-key="Meta AI"><input type="checkbox" value="Meta AI"> ◈ Meta AI</label>
+        </div>
+      </div>
+
+      <div class="comparator-actions">
+        <button id="clear-compare" class="btn btn-secondary" style="padding:0.45rem 1.1rem;font-size:0.82rem;">Clear selection</button>
+      </div>
+
+      <div id="comparator-output">
+        <div class="comparator-placeholder">Select at least 2 platforms to start comparing.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── BACK TO TOP ── -->
+  <button id="back-to-top" aria-label="Back to top">↑</button>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">AI with Responsibility</div>
+      <div class="footer-divider"></div>
+      <div class="footer-author">Isabelle Bianca Sampaio</div>
+      <div class="footer-program">
+        University of Central Florida (UCF) &nbsp;·&nbsp;
+        Master of Arts in Interdisciplinary Studies
+      </div>
+      <div class="footer-copy">
+        &copy; 2025 Isabelle Bisam®. Academic capstone project. All rights reserved.
+      </div>
+      <div style="font-size:0.75rem; color:var(--muted); margin-top:0.25rem;">
+        Methodological source code available as Appendix B of the capstone.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Hamburger ────────────────────────────────────────────
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks  = document.getElementById('nav-links');
+
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open', open);
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+      });
+    });
+
+    // ── Back to top ──────────────────────────────────────────
+    const backToTop = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 300);
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ── Fade-in ──────────────────────────────────────────────
+    document.querySelectorAll('section').forEach(el => el.classList.add('fade-in'));
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ── Comparator data ──────────────────────────────────────
+    const DATASETS = {
+      tos: {
+        label: 'Terms of Service',
+        rows: [
+          'Ownership & Licensing',
+          'AI Training',
+          'Data Governance',
+          'Power Asymmetry',
+          'Total Score',
+        ],
+        tips: [
+          'Higher = platform claims broader rights over your content',
+          'Higher = more explicit AI training language. Lower may mean the topic is avoided entirely — not that you\'re protected.',
+          'Higher = more data collection and sharing language',
+          'Higher = more unilateral control by the platform (termination, arbitration, no-notice changes)',
+          'Combined keyword frequency across all 4 dimensions',
+        ],
+        dimNames: ['Ownership & Licensing', 'AI Training', 'Data Governance', 'Power Asymmetry'],
+        platforms: {
+          'Instagram':  { scores: [25, 7, 35, 26],  total: 93  },
+          'YouTube':    { scores: [37, 0, 26, 14],  total: 77  },
+          'TikTok':     { scores: [45, 4, 31, 42],  total: 122 },
+          'Kwai':       { scores: [32, 4, 28, 44],  total: 108 },
+          'WhatsApp':   { scores: [35, 6, 37, 61],  total: 139 },
+          'ChatGPT':    { scores: [17, 1, 18, 5],   total: 41  },
+          'Gemini':     { scores: [7,  6, 9,  3],   total: 25  },
+          'MS Copilot': { scores: [5,  3, 23, 7],   total: 38  },
+          'CapCut':     { scores: [96, 4, 76, 58],  total: 234 },
+          'Meta AI':    { scores: [6,  0, 30, 9],   total: 45  },
+        },
+        badge(val, isTotal) {
+          if (isTotal) return val >= 100 ? 'badge-low' : val >= 50 ? 'badge-medium' : 'badge-high';
+          return val >= 30 ? 'badge-low' : val >= 10 ? 'badge-medium' : 'badge-high';
+        },
+      },
+      privacy: {
+        label: 'Privacy Policy',
+        rows: [
+          'Data Collection',
+          'Data Use & AI',
+          'Data Sharing',
+          'User Rights & LGPD',
+          'Total Score',
+        ],
+        tips: [
+          'Higher = more personal data being collected and tracked',
+          'Higher = more uses described, including AI training. Lower may mean less transparency, not less use.',
+          'Higher = more third-party sharing language, including cross-border transfers',
+          'Higher = more rights language. May indicate regulatory compliance or a more comprehensive policy.',
+          'Combined keyword frequency across all 4 privacy dimensions',
+        ],
+        dimNames: ['Data Collection', 'Data Use & AI', 'Data Sharing', 'User Rights & LGPD'],
+        platforms: {
+          'Instagram':  { scores: [233, 41, 115, 268], total: 657 },
+          'YouTube':    { scores: [113, 28, 34,  156], total: 331 },
+          'TikTok':     { scores: [60,  19, 26,  80],  total: 185 },
+          'Kwai':       { scores: [47,  11, 45,  49],  total: 152 },
+          'WhatsApp':   { scores: [29,  8,  34,  70],  total: 141 },
+          'ChatGPT':    { scores: [91,  7,  14,  137], total: 249 },
+          'Gemini':     { scores: [163, 42, 44,  204], total: 453 },
+          'MS Copilot': { scores: [2,   6,  5,   76],  total: 89  },
+          'CapCut':     { scores: [31,  10, 28,  49],  total: 118 },
+          'Meta AI':    { scores: [233, 41, 115, 268], total: 657 },
+        },
+        badge(val, isTotal) {
+          if (isTotal) return val >= 400 ? 'badge-low' : val >= 200 ? 'badge-medium' : 'badge-high';
+          // Per-column thresholds calibrated to the privacy data ranges
+          return val >= 100 ? 'badge-low' : val >= 30 ? 'badge-medium' : 'badge-high';
+        },
+      },
+    };
+
+    let activeDataset = 'tos';
+
+    // ── Dataset toggle ───────────────────────────────────────
+    document.getElementById('btn-tos').addEventListener('click', () => {
+      activeDataset = 'tos';
+      document.getElementById('btn-tos').classList.add('active');
+      document.getElementById('btn-privacy').classList.remove('active');
+      renderComparator();
+    });
+
+    document.getElementById('btn-privacy').addEventListener('click', () => {
+      activeDataset = 'privacy';
+      document.getElementById('btn-privacy').classList.add('active');
+      document.getElementById('btn-tos').classList.remove('active');
+      renderComparator();
+    });
+
+    // ── Build summary sentence ───────────────────────────────
+    function buildSummary(selected, ds) {
+      const { platforms, dimNames } = ds;
+
+      if (selected.length === 2) {
+        const [a, b] = selected;
+        const higher = platforms[a].total >= platforms[b].total ? a : b;
+        const lower  = higher === a ? b : a;
+        const standout = dimNames.filter((_, i) => {
+          return platforms[higher].scores[i] > platforms[lower].scores[i] &&
+                 (platforms[higher].scores[i] - platforms[lower].scores[i]) >= 5;
+        });
+        if (!standout.length) return `${a} and ${b} have similar keyword frequency profiles across all dimensions.`;
+        const dims = standout.length === 1
+          ? standout[0]
+          : standout.slice(0, -1).join(', ') + ' and ' + standout.at(-1);
+        return `${higher} shows higher keyword frequency than ${lower}, particularly in ${dims}.`;
+      }
+
+      const totals = selected.map(p => ({ p, t: platforms[p].total })).sort((a, b) => b.t - a.t);
+      const top = totals[0].p, bot = totals[totals.length - 1].p;
+      const standout = dimNames.filter((_, i) =>
+        platforms[top].scores[i] === Math.max(...selected.map(p => platforms[p].scores[i]))
+      );
+      const dims = standout.length
+        ? ' — especially in ' + (standout.length === 1 ? standout[0] : standout.slice(0, -1).join(', ') + ' and ' + standout.at(-1))
+        : '';
+      return `Among the selected platforms, ${top} has the most extensive legal language${dims}. ${bot} has the lowest overall keyword frequency.`;
+    }
+
+    // ── Render table ─────────────────────────────────────────
+    function renderComparator() {
+      const selected = Array.from(document.querySelectorAll('.chip.selected')).map(c => c.dataset.key);
+      const out = document.getElementById('comparator-output');
+      const ds  = DATASETS[activeDataset];
+
+      if (selected.length < 2) {
+        out.innerHTML = '<div class="comparator-placeholder">Select at least 2 platforms to start comparing.</div>';
+        return;
+      }
+
+      const rows = ds.rows.map((label, i) => {
+        const isTotal = i === ds.rows.length - 1;
+        const vals = selected.map(p => isTotal ? ds.platforms[p].total : ds.platforms[p].scores[i]);
+        const max  = Math.max(...vals);
+        return { label, tip: ds.tips[i], isTotal, vals, max };
+      });
+
+      let html = `<div class="comparator-context-note">
+        <span>⚠️</span>
+        <span><strong>Important:</strong> higher scores do not mean better or safer platforms. Scores reflect how frequently key legal terms appear in each ${ds.label} document. A high score may indicate more aggressive rights acquisition or less transparency — not more protection.</span>
+      </div>`;
+
+      html += '<div class="comparator-table-wrap"><table class="comparator-table"><thead><tr>';
+      html += '<th class="row-header">Dimension</th>';
+      selected.forEach(p => { html += `<th>${p}</th>`; });
+      html += '</tr></thead><tbody>';
+
+      rows.forEach(row => {
+        html += row.isTotal ? '<tr class="total-row">' : '<tr>';
+        html += `<td class="row-label"><span class="has-tip" data-tip="${row.tip}">${row.label}</span></td>`;
+        row.vals.forEach(v => {
+          const bc    = ds.badge(v, row.isTotal);
+          const crown = v === row.max ? '<span class="crown">👑</span>' : '';
+          html += `<td><span class="badge ${bc}">${v}</span>${crown}</td>`;
+        });
+        html += '</tr>';
+      });
+
+      html += '</tbody></table></div>';
+      html += `<div class="comparator-summary">📝 ${buildSummary(selected, ds)}</div>`;
+      out.innerHTML = html;
+    }
+
+    // ── Chip toggles ─────────────────────────────────────────
+    document.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', e => {
+        e.preventDefault();
+        chip.classList.toggle('selected');
+        chip.querySelector('input').checked = chip.classList.contains('selected');
+        renderComparator();
+      });
+    });
+
+    document.getElementById('clear-compare').addEventListener('click', () => {
+      document.querySelectorAll('.chip.selected').forEach(c => {
+        c.classList.remove('selected');
+        c.querySelector('input').checked = false;
+      });
+      renderComparator();
+    });
+  </script>
+
+</body>
+</html>
